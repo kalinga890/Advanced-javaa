@@ -17,6 +17,31 @@ public class Runner1 {
             System.out.println(fruit[i]);
 
 
+            boolean value = fruitStorage.update("banana", "kiwi");
+            System.out.println(value);
+
+            String[] fruit1 = fruitStorage.readAll();
+            for (int k= 0; i < fruit.length; i++) {
+                System.out.println(fruit[i]);
+
+
+
+
+                    boolean value1 = fruitStorage.delete("apple");
+                    System.out.println(value1);
+
+                    String[] fruit3 = fruitStorage.readAll();
+                    for (int l= 0; i < fruit.length; i++) {
+                        System.out.println(fruit[i]);
+
+
+                    }
+                }
+            }
+
+
         }
     }
-}
+
+
+
