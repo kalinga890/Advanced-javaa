@@ -34,6 +34,10 @@ public class Runner1 {
                     for (int l= 0; i < fruit.length; i++) {
                         System.out.println(fruit[i]);
 
+                     boolean ree = fruitStorage.accendingorder();
+                        System.out.println(ree);
+
+
 
                     }
                 }

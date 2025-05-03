@@ -67,7 +67,7 @@ public class FruitStorage {
     public boolean delete(String oldvalue) {
         if (oldvalue != null) {
             for (int i = 0; i < Fruit.length; i++) {
-                if (Fruit[i] == oldvalue) {
+                if (Fruit[i].equals(oldvalue)) {
                     Fruit[i] = null;
                     System.out.println("old value is deleted");
                     return false;
@@ -82,7 +82,25 @@ public class FruitStorage {
             return false;
         }
     }
-}
+
+    public boolean accendingorder(){
+        int count = 0;
+        for(int i= 0; i<Fruit.length; i++){
+            for (int  j= 1; j < Fruit.length;j ++) {
+               if(Fruit[i]!=null){
+                   Fruit[i].length();
+                   return true;
+
+               }
+
+            }
+        }
+        return  false;
+    }
+
+
+
+        }
 
 
 
