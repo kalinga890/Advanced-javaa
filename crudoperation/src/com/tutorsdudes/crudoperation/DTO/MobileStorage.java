@@ -7,30 +7,52 @@ public class MobileStorage {
 
     public boolean saveValue(MobileDto mobileDto) {
         if (mobileDto != null) {
-            if (mobileDto.getBrandName() != null && mobileDto.getBrandName().length() >= 4) {
-                if (mobileDto.getProcessor() != null && mobileDto.getProcessor().length() >= 5) {
-                    for (int i = 0; i < mobile.length; i++) {
-                        if (mobile[i] == null) {
-                            System.out.println("Saved mobile: " + mobileDto);
-                            mobile[i] = mobileDto;
-                            return true;
-                        }
-                    }
-                    System.out.println("Storage is full");
-                    return false;
+            if (mobileDto.getProcessor() != null && mobileDto.getProcessor().length() >= 5) {
 
+
+                for (int i = 0; i < mobile.length; i++) {
+                    if (mobile[i] == null) {
+                        System.out.println("Saved mobile: " + mobileDto);
+                        mobile[i] = mobileDto;
+                        return true;
+                    }
 
                 }
-                System.out.println("Invalid processor name");
+                System.out.println("storage is full");
                 return false;
 
             }
-
-            System.out.println("invalid brand name");
+            System.out.println("Invalid processor name");
             return false;
+
         }
-        System.out.println("MobileDto is null");
+        System.out.println("mobileDto is null");
         return false;
+
+    }
+
+    public MobileDto[] readAll() {
+        return mobile;
+    }
+
+    public MobileDto findBrand(String brand) {
+        if (brand != null && brand.length() <= 5) {
+            for (int i = 0; i < mobile.length; i++) {
+                if (mobile[i] != null) {
+                    if (mobile[i].getBrandName().equals(brand)) {
+                        return mobile[i]; // Brand matched
+                    }
+                }
+
+            }
+            System.out.println("Given brand value is not present.");
+            return null;
+        }
+        System.out.println("Brand value is null or exceeds length limit.");
+        return null;
     }
 
 }
+
+
+
