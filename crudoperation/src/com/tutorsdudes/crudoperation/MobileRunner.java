@@ -22,8 +22,8 @@ public class MobileRunner {
        //     System.out.println(result[i].getColour());
 
 
-            MobileDto result1 = mobileStorage.findBrand("oppo");
-            System.out.println(result1.getBrandName());
+        MobileDto result1 = mobileStorage.findBrand("oppo");
+        System.out.println(result1.getBrandName());
         System.out.println(result1.getColour());
         System.out.println(result1.getZoomLevel());
         System.out.println(result1.getPrice());
