@@ -52,16 +52,9 @@ public class Collection {
         System.out.println(collection.get(1));  // specific index access
         System.out.println(collection.get(3));
         System.out.println(collection.get(6));
-
-
-
-
+        
 
     }
-
-
-
-
 
 
 }
