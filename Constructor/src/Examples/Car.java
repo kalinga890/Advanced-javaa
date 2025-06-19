@@ -7,11 +7,12 @@ public class Car {
     public int nooftyers;
 
 
-    // no parameter constructor
-    public  Car(){
-        System.out.println("car moving faster than bus");
+    // default constructors
 
-    }
+     public Car(){
+         System.out.println("default constructors");
+     }
+
 
   // method
     public static void transport(){
