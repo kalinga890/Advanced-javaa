@@ -1,9 +1,10 @@
 package com.tutorsdude.youtubeprojet;
 
-import com.tutorsdude.youtubeprojet.dto.UserDto;
-import com.tutorsdude.youtubeprojet.dto.VedioDto;
-import com.tutorsdude.youtubeprojet.repository.YoutubeRepository;
+import com.tutorsdude.youtubeprojet.dto.VideoDto;
+
 import com.tutorsdude.youtubeprojet.service.YoutubeService;
+
+import java.util.List;
 
 public class YoutubeRunner {
 
@@ -11,29 +12,29 @@ public class YoutubeRunner {
     public static void main(String[] args) {
 
 
-        UserDto u1 = new UserDto("bangaluru",10,"12345678",583122,"kali");
+        VideoDto video = new VideoDto("bangari music",100,900,1000,240,480,"Classical song");
 
-        VedioDto v1 = new VedioDto("bangari",50,100,240,"classical vedio");
+        VideoDto video1 = new VideoDto("Mayavi",200,800,500,600,720," Love song");
+
 
         YoutubeService youtubeService = new YoutubeService();
 
-        youtubeService.validate(u1,v1);
+        youtubeService.validateAndSave(video);
+        youtubeService.validateAndSave(video1);
 
-        YoutubeRepository youtubeRepository = new YoutubeRepository();
-
-        youtubeRepository.upload(v1);
-
-        youtubeRepository.vedioLikes(v1);
-        youtubeRepository.vedioLikes(v1);
-        youtubeRepository.vedioLikes(v1);
-
-
-        System.out.println(v1.likes());
-
-
+        List<VideoDto> read= youtubeService.ReadAll();
+        System.out.println(read);
 
 
 
 
     }
+
+
+
+
+
+
+
+
 }

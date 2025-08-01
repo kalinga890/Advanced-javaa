@@ -1,30 +1,30 @@
 package com.tutorsdude.youtubeprojet.repository;
 
-import com.tutorsdude.youtubeprojet.dto.VedioDto;
+import com.tutorsdude.youtubeprojet.dto.VideoDto;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class YoutubeRepository {
 
+    private List<VideoDto> videoDtoList = new ArrayList<>();
 
 
-    List<VedioDto> vedioDtoList = new ArrayList<>();
+    public boolean saveVideo(VideoDto videoDto){
+        if(videoDto!=null){
+            videoDtoList.add(videoDto);
+            System.out.println("Video saved");
+            return true;
 
-
-    public boolean upload(VedioDto vedioDto){
-        vedioDtoList.add(vedioDto);
-
-        return true;
-    }
-
-    public boolean vedioLikes(VedioDto vedioDto){
-        vedioDto.likes();
-        return true;
+        } else
+            System.out.println("Storage may be null or issue");
+        return false;
 
     }
 
-
+    public List<VideoDto> ReadAll(){
+        return videoDtoList;
+    }
 
 
 }
