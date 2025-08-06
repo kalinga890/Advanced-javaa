@@ -10,8 +10,8 @@ public class YoutubeRepository {
     private List<VideoDto> videoDtoList = new ArrayList<>();
 
 
-    public boolean saveVideo(VideoDto videoDto){
-        if(videoDto!=null){
+    public boolean saveVideo(VideoDto videoDto) {
+        if (videoDto != null) {
             videoDtoList.add(videoDto);
             System.out.println("Video saved");
             return true;
@@ -22,9 +22,36 @@ public class YoutubeRepository {
 
     }
 
-    public List<VideoDto> ReadAll(){
+    public List<VideoDto> ReadAll() {
         return videoDtoList;
     }
 
 
+    public List<VideoDto> findVideo(String videoTitle) {
+        List<VideoDto> searchList = new ArrayList<>();
+        if (videoTitle != null) {
+            for (VideoDto dto : videoDtoList) {
+                if (dto.getTitle().contains(videoTitle)) {
+                    searchList.add(dto);
+                }
+            }
+        }
+        return searchList;
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

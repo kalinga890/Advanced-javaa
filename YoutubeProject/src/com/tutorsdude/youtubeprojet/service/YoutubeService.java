@@ -3,6 +3,8 @@ package com.tutorsdude.youtubeprojet.service;
 import com.tutorsdude.youtubeprojet.dto.VideoDto;
 import com.tutorsdude.youtubeprojet.repository.YoutubeRepository;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class YoutubeService {
@@ -14,8 +16,10 @@ public class YoutubeService {
             if(videoDto.getQuality()>144){
                 if(videoDto.getNoOfComments()<500){
                     if(videoDto.getNoOfLikes()<1000){
+
                         System.out.println("Video validated and save it");
-                     return  repository.saveVideo(videoDto);
+                        return  repository.saveVideo(videoDto);
+
 
                     } else
                         System.out.println("Invalid: Video Likes more than 1000");
@@ -35,7 +39,64 @@ public class YoutubeService {
         return false;
     }
 
-    public List<VideoDto> ReadAll(){
+
+
+    public VideoDto validAndLikes(VideoDto title) {
+        if (title != null && title.getTitle() != null) {
+            List<VideoDto> allVideos = repository.ReadAll();  // get all stored videos
+
+            for (VideoDto video : allVideos) {
+                if (video.getTitle().equalsIgnoreCase(title.getTitle())) {
+                    int currentLikes = video.getNoOfLikes();
+                    video.setNoOfLikes(currentLikes + 1);  // increment like
+                    System.out.println("Video liked: " + video.getTitle());
+                    return video; // return updated video
+                }
+            }
+
+            System.out.println("Video with given title not found.");
+            return null;
+
+        } else {
+            System.out.println("Invalid video title or null video");
+            return null;
+        }
+    }
+
+
+    public List<VideoDto> searchByVideoTitle(String titlePart) {
+        if (titlePart != null ) {
+          return   repository.findVideo(titlePart);
+
+        }
+        System.out.println("Search title is invalid");
+        return null;
+
+    }
+
+    public List<VideoDto> ReadAll() {
         return repository.ReadAll();
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
