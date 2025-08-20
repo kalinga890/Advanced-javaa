@@ -1,10 +1,11 @@
 package com.tutorsdude.youtubeprojet.service;
 
 import com.tutorsdude.youtubeprojet.dto.VideoDto;
+import com.tutorsdude.youtubeprojet.exception.VideoCommentsException;
+import com.tutorsdude.youtubeprojet.exception.VideoLikesException;
+import com.tutorsdude.youtubeprojet.exception.VideoQualityException;
 import com.tutorsdude.youtubeprojet.repository.YoutubeRepository;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class YoutubeService {
@@ -21,18 +22,15 @@ public class YoutubeService {
                         return  repository.saveVideo(videoDto);
 
 
-                    } else
-                        System.out.println("Invalid: Video Likes more than 1000");
-                    return false;
+                    }
+
+                    throw new VideoLikesException("Likes must be less than 1000");
 
 
-                } else
-                    System.out.println("Invalid: Video Comments more than 500");
-                return false;
 
-            } else
-                System.out.println("Invalid: video quality less than 144p");
-            return false;
+                }  throw new VideoCommentsException("Video has too many comments (limit: 499)");
+
+            }  throw new VideoQualityException("Video quality must be higher than 144p");
 
         } else
             System.out.println("videoDto not valid");
@@ -41,7 +39,7 @@ public class YoutubeService {
 
 
 
-    public VideoDto validAndLikes(VideoDto title) {
+    public VideoDto validAndLikes(VideoDto title)   {
         if (title != null && title.getTitle() != null) {
             List<VideoDto> allVideos = repository.ReadAll();  // get all stored videos
 
@@ -59,6 +57,7 @@ public class YoutubeService {
 
         } else {
             System.out.println("Invalid video title or null video");
+
             return null;
         }
     }

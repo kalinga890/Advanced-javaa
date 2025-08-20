@@ -1,6 +1,9 @@
 package com.tutorsdude.youtubeprojet;
 
 import com.tutorsdude.youtubeprojet.dto.VideoDto;
+import com.tutorsdude.youtubeprojet.exception.VideoCommentsException;
+import com.tutorsdude.youtubeprojet.exception.VideoLikesException;
+import com.tutorsdude.youtubeprojet.exception.VideoQualityException;
 import com.tutorsdude.youtubeprojet.service.YoutubeService;
 
 import java.util.List;
@@ -16,7 +19,7 @@ public class YoutubeRunner {
         // Print menu first
         while (true) {
             System.out.println("1. Create VideoDto");
-            System.out.println("2. List of VideoDto");
+            System.out.println("show list of videoDto");
             System.out.print("Choose number: ");
 
             int choose = sc.nextInt();
@@ -46,20 +49,28 @@ public class YoutubeRunner {
                     System.out.print("Enter video title: ");
                     String title = sc.nextLine();
 
+
                     VideoDto dto = new VideoDto(musicName, noOfComments, noOfLikes, noOfShare, noOfViews, quality, title);
 
-                    youtubeService.validateAndSave(dto);
-                    youtubeService.validAndLikes(dto);
+                    try {
+                        youtubeService.validateAndSave(dto);
 
-                    System.out.println("Video created. You can view it now.");
-                    break;
+                    } catch (VideoCommentsException | VideoQualityException | VideoLikesException e) {
+                        System.err.println("Caught custom exception: " + e.getMessage());
+                    }
 
+                    System.out.println("Program continues after handling exception...");
 
                 case 2:
-                    List<VideoDto> list = youtubeService.ReadAll();
-                    System.out.println("List of Videos: " + list);
+
+                  List<VideoDto>  result = youtubeService.ReadAll();
+                    System.out.println(result);
 
             }
+
+
+
+
 
         }
     }
