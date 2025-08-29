@@ -1,54 +1,63 @@
 package com.tutorsdude.jdbcpostgrel;
 
+import com.tutorsdude.jdbcpostgrel.contacts.DbContacts;
+import com.tutorsdude.jdbcpostgrel.dto.CarsDto;
+import com.tutorsdude.jdbcpostgrel.repository.CarsRepository;
+
 import java.sql.*;
 
 public class Runner {
 
     public static void main(String[] args) {
 
-        String url = "jdbc:postgresql://localhost:5433/postgres";
-        String username = "postgres";
-        String password = "kalinga@567";
 
+         CarsRepository carsRepository =new CarsRepository();
 
+              // INSERT
 
-        try {
-           Class.forName("org.postgresql.Driver");
-
-           Connection connection = DriverManager.getConnection(url,username,password);
-
-            System.out.println("successfully connected :" + connection);
-
-          Statement statement = connection.createStatement();// create statements
-
-//          String query = "insert into cars (brand,model,year) values ('swift','z1',2000);";
+//        CarsDto dto = new CarsDto("Nissan","GTR",2021);
 //
-//            statement.execute(query);
+//        Boolean insetResult = carsRepository.saveCars(dto);
+//
+//        System.out.println(insetResult);
 
-            String readquery = "select * from cars";
+             // READ ALL
+//
+//         carsRepository.readCars(dto);
 
-          ResultSet resultSet = statement.executeQuery(readquery);
-            System.out.println(resultSet);
+                 // UPDATE
 
-            while (resultSet.next()){
-               String brand = resultSet.getString("brand");
-               String model  = resultSet.getString("model");
-               int year      =  resultSet.getInt("year");
+//        CarsDto updateCar = new CarsDto("Maruti","Baleno",2020);
+//
+//        Boolean resultUpdate = carsRepository.updateCars(updateCar,2001);-
+//
+//        System.out.println(resultUpdate);
+
+                   // DELETE
+
+//        Boolean deleteCars = carsRepository.deleteCars("Ford");
+//
+//        System.out.println(deleteCars);
 
 
-                System.out.println("brand :" + brand);
-                System.out.println("model :" + model);
-                System.out.println("year : " + year);
-                System.out.println("-------------------------------------");
-            }
+
+            // FIND BY BRAND NAME
+
+//        Boolean result =carsRepository.findBrandName("Nissan");
+//
+//        System.out.println(result);
 
 
-       } catch (ClassNotFoundException e){
-           e.printStackTrace();
 
-       } catch (SQLException e){
-            e.printStackTrace();
-        }
+
+
+
+
+
+
+
+
+
 
 
     }
