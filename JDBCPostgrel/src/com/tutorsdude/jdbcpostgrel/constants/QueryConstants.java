@@ -1,6 +1,6 @@
 package com.tutorsdude.jdbcpostgrel.contacts;
 
-public class QueryContacts {
+public class QueryConstants {
 
     public static String INSERT_QUERY = "insert into cars (brand,model,year) values (?,?,?)";
 

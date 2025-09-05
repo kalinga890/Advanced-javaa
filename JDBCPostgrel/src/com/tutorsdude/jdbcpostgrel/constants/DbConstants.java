@@ -1,6 +1,6 @@
 package com.tutorsdude.jdbcpostgrel.contacts;
 
-public enum DbContacts {
+public enum DbConstants {
 
     URL("jdbc:postgresql://localhost:5433/postgres"),USER_NAME("postgres"),PASSWORD("kalinga@567"),
     DRIVER("org.postgresql.Driver");
@@ -8,7 +8,7 @@ public enum DbContacts {
    private String value;
 
 
-    DbContacts (String value){
+    DbConstants(String value){
         this.value = value;
 
     }

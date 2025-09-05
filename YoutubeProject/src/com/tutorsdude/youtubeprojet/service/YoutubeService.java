@@ -4,13 +4,13 @@ import com.tutorsdude.youtubeprojet.dto.VideoDto;
 import com.tutorsdude.youtubeprojet.exception.VideoCommentsException;
 import com.tutorsdude.youtubeprojet.exception.VideoLikesException;
 import com.tutorsdude.youtubeprojet.exception.VideoQualityException;
-import com.tutorsdude.youtubeprojet.repository.YoutubeRepository;
+import com.tutorsdude.youtubeprojet.repository.YoutubeRepositoryImp;
 
 import java.util.List;
 
 public class YoutubeService {
 
-     YoutubeRepository repository = new YoutubeRepository();
+     YoutubeRepositoryImp repository = new YoutubeRepositoryImp();
 
     public boolean validateAndSave(VideoDto videoDto){
         if(videoDto!=null){
@@ -19,7 +19,7 @@ public class YoutubeService {
                     if(videoDto.getNoOfLikes()<1000){
 
                         System.out.println("Video validated and save it");
-                        return  repository.saveVideo(videoDto);
+                        return  repository.saveVideoDto(videoDto);
 
 
                     }
@@ -39,33 +39,28 @@ public class YoutubeService {
 
 
 
-    public VideoDto validAndLikes(VideoDto title)   {
-        if (title != null && title.getTitle() != null) {
-            List<VideoDto> allVideos = repository.ReadAll();  // get all stored videos
+    public boolean likeVideo(String title) {
+        if (title != null && !title.isEmpty()) {
+            boolean updated = repository.likesCount(title);
 
-            for (VideoDto video : allVideos) {
-                if (video.getTitle().equalsIgnoreCase(title.getTitle())) {
-                    int currentLikes = video.getNoOfLikes();
-                    video.setNoOfLikes(currentLikes + 1);  // increment like
-                    System.out.println("Video liked: " + video.getTitle());
-                    return video; // return updated video
-                }
+            if (updated) {
+                System.out.println("Like added successfully for video: " + title);
+                return true;
+            } else {
+                System.out.println("Video not found: " + title);
+                return false;
             }
-
-            System.out.println("Video with given title not found.");
-            return null;
-
         } else {
-            System.out.println("Invalid video title or null video");
-
-            return null;
+            System.out.println("Invalid title");
+            return false;
         }
     }
 
 
-    public List<VideoDto> searchByVideoTitle(String titlePart) {
-        if (titlePart != null ) {
-          return   repository.findVideo(titlePart);
+
+    public List<VideoDto> searchByVideoTitle(String videoTitle) {
+        if (videoTitle != null ) {
+          return   repository.findByVideoTitle(videoTitle);
 
         }
         System.out.println("Search title is invalid");
@@ -73,9 +68,23 @@ public class YoutubeService {
 
     }
 
-    public List<VideoDto> ReadAll() {
-        return repository.ReadAll();
+    public List<VideoDto> readAll() {
+        return repository.readAll();
     }
+
+
+    public  boolean update(String newValue,String oldValue){
+
+        return  repository.update(newValue,oldValue);
+    }
+
+    public boolean delete(String title){
+
+        return repository.delete(title);
+    }
+
+
+
 }
 
 

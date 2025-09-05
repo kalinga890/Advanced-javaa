@@ -19,7 +19,11 @@ public class YoutubeRunner {
         // Print menu first
         while (true) {
             System.out.println("1. Create VideoDto");
-            System.out.println("show list of videoDto");
+            System.out.println("2.show list of videoDto");
+            System.out.println("3.find by title name");
+            System.out.println("4.update the music name");
+            System.out.println("5.delete the value using video title");
+            System.out.println("6. update the likes count using video title");
             System.out.print("Choose number: ");
 
             int choose = sc.nextInt();
@@ -27,33 +31,33 @@ public class YoutubeRunner {
 
             switch (choose) {
                 case 1:
-                    System.out.print("Enter video musicName: ");
+                    System.out.print("Enter  videoTitle: ");
+                    String videoTitle = sc.nextLine();
+
+                    System.out.print("Enter the musicName: ");
                     String musicName = sc.nextLine();
 
-                    System.out.print("Enter number of comments: ");
-                    int noOfComments = sc.nextInt();
+                    System.out.print("Enter number of noLikes: ");
+                    int noLikes = sc.nextInt();
 
-                    System.out.print("Enter number of likes: ");
-                    int noOfLikes = sc.nextInt();
+                    System.out.print("Enter videoQuality: ");
+                    int videoQuality = sc.nextInt();
 
-                    System.out.print("Enter number of shares: ");
-                    int noOfShare = sc.nextInt();
+                    System.out.print("Enter number of noComments: ");
+                    int noComments = sc.nextInt();
 
-                    System.out.print("Enter number of views: ");
-                    int noOfViews = sc.nextInt();
-
-                    System.out.print("Enter video quality: ");
-                    int quality = sc.nextInt();
-                    sc.nextLine(); // consume newline
-
-                    System.out.print("Enter video title: ");
-                    String title = sc.nextLine();
+                    System.out.print("Enter noShare: ");
+                    int noShare = sc.nextInt();
 
 
-                    VideoDto dto = new VideoDto(musicName, noOfComments, noOfLikes, noOfShare, noOfViews, quality, title);
+                    System.out.print("Enter noViewes: ");
+                    int noViewes = sc.nextInt();
+
+
+                    VideoDto videoDto = new VideoDto(videoTitle, musicName, noLikes, videoQuality, noComments, noShare, noViewes);
 
                     try {
-                        youtubeService.validateAndSave(dto);
+                        youtubeService.validateAndSave(videoDto);
 
                     } catch (VideoCommentsException | VideoQualityException | VideoLikesException e) {
                         System.err.println("Caught custom exception: " + e.getMessage());
@@ -61,12 +65,58 @@ public class YoutubeRunner {
 
                     System.out.println("Program continues after handling exception...");
 
+                    break;
+
+
                 case 2:
 
-                  List<VideoDto>  result = youtubeService.ReadAll();
+                    List<VideoDto> result = youtubeService.readAll();
                     System.out.println(result);
 
+                    break;
+
+                case 3:
+
+                    List<VideoDto> vlogBali = youtubeService.searchByVideoTitle("Travel Vlog Bali");
+
+                    System.out.println(vlogBali);
+
+                    break;
+
+                case 4:
+
+                    boolean updated = youtubeService.update("Pump Up Track", "Travel Vlog Bali");
+
+                    System.out.println(updated);
+
+                    break;
+
+                case 5:
+
+                    boolean deleted = youtubeService.delete("melodic");
+
+                    System.out.println(deleted);
+
+                    break;
+
+
+                case 6:
+
+                     String videoTitle1 = "love song";
+
+                    boolean count = youtubeService.likeVideo(videoTitle1);
+
+                    System.out.println(count);
+
+                    break;
+
+
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+
+
             }
+
 
 
 
