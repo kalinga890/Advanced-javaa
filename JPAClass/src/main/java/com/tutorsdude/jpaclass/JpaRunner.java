@@ -1,11 +1,8 @@
 package com.tutorsdude.jpaclass;
 
 
-import com.tutorsdude.jpaclass.Dto.VideoDto;
-import com.tutorsdude.jpaclass.repository.VideoRepository;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
+import com.tutorsdude.jpaclass.dto.VideoDto;
+import com.tutorsdude.jpaclass.services.VideoServices;
 
 import java.util.List;
 
@@ -13,31 +10,30 @@ public class JpaRunner {
 
     public static void main(String[] args) {
 
-      VideoRepository videoRepository = new VideoRepository();
+        VideoServices videoServices = new VideoServices();
 
 
-        VideoDto videoDto = new VideoDto(13,"love song","karedantte",120,240,250,300,350);
+        VideoDto videoDto = new VideoDto(14,"melodic song","karedantte",120,480,250,300,350);
 
-//            boolean resultQuery = videoRepository.save(videoDto);
+//        boolean insertResult = videoServices.validAndSave(videoDto);
 //
-//                System.out.println(resultQuery);
+//        System.out.println("successfully insert into the table:" + insertResult);
 
-//                videoRepository.update();
+//         List<VideoDto> readAll = videoServices.readAll();
 //
-//                videoRepository.readAll();
+//         System.out.println(readAll);
 
-//                videoRepository.delete();
+           boolean updated = videoServices.update("naguva gulabi", "love song");
 
-                  videoRepository.findByTitle();
+           System.out.println(updated);
 
+//             boolean deleted = videoServices.delete("melodic song");
+//
+//             System.out.println(deleted);
 
-
-
-
-
-
-
-
+//              List<VideoDto>  videoList =  videoServices.findByTitle("love song");
+//
+//              System.out.println(videoList)
 
     }
 }

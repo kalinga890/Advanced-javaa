@@ -1,8 +1,8 @@
 package com.tutorsdude.jpaclass.repository;
 
 
-import com.tutorsdude.jpaclass.Dto.VideoDto;
-import com.tutorsdude.jpaclass.Utils.DbUtils;
+import com.tutorsdude.jpaclass.dto.VideoDto;
+import com.tutorsdude.jpaclass.utils.DbUtils;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -37,22 +37,17 @@ public class VideoRepository {
 
      EntityTransaction entityTransaction = em.getTransaction();
 
-      String readQuery = "select dto from VideoDto dto";
-
-      List<VideoDto> dtoList =  em.createQuery(readQuery,VideoDto.class).getResultList();
+     List<VideoDto> dtoList =  em.createNamedQuery("readQuery",VideoDto.class).getResultList();
 
        entityTransaction.begin();
 
-        System.out.println(dtoList);
+       entityTransaction.commit();
 
-        entityTransaction.commit();
-
-
-        return dtoList;
+       return dtoList;
     }
 
 
-    public boolean update(){
+    public boolean update(String music, String title){
 
        EntityManagerFactory emf  = DbUtils.getEntityManagerFactory();
 
@@ -62,13 +57,10 @@ public class VideoRepository {
 
         entityTransaction.begin();
 
-        String updateQuery = "update VideoDto dto set dto.music_name  = :mname where dto.video_title = :ntitle";
+          Query query =  em.createNamedQuery("updateQuery");
 
-          Query query =  em.createQuery(updateQuery);
-
-          query.setParameter("mname","chandira chacori");
-          query.setParameter("ntitle","melodic song");
-
+          query.setParameter("mname",music);
+          query.setParameter("ntitle",title);
 
           query.executeUpdate();
 
@@ -78,7 +70,7 @@ public class VideoRepository {
         return true;
     }
 
-    public boolean delete(){
+    public boolean delete(String title){
 
       EntityManagerFactory emf = DbUtils.getEntityManagerFactory();
 
@@ -88,11 +80,9 @@ public class VideoRepository {
 
           et.begin();
 
-          String deleteQuery = "delete  from VideoDto dto where dto.video_title = :ntitle";
+        Query query = em.createNamedQuery("deleteQuery");
 
-        Query query = em.createQuery(deleteQuery);
-
-        query.setParameter("ntitle","melodic song");
+        query.setParameter("ntitle", title);
 
         query.executeUpdate();
 
@@ -101,24 +91,19 @@ public class VideoRepository {
         return true;
     }
 
-    public List<VideoDto> findByTitle(){
+    public List<VideoDto> findByTitle(String title){
 
      EntityManagerFactory emf =  DbUtils.getEntityManagerFactory();
 
    EntityManager em = emf.createEntityManager();
 
-   String findTitle = "select dto from VideoDto dto where dto.video_title = :ntitle";
+   TypedQuery<VideoDto> query = em.createNamedQuery("findByTitle", VideoDto.class);
 
-   TypedQuery<VideoDto> query = em.createQuery(findTitle,VideoDto.class);
-
-   query.setParameter("ntitle","sad song");
-
-        List<VideoDto> resultList = query.getResultList();
-
-        System.out.println(resultList);
+   query.setParameter("ntitle", title);
 
 
-        return List.of();
+   return  query.getResultList();
+
     }
 
 }

@@ -1,4 +1,4 @@
-package com.tutorsdude.jpaclass.Utils;
+package com.tutorsdude.jpaclass.utils;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
